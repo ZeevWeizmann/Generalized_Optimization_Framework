@@ -145,7 +145,7 @@ All reported metrics are computed **exclusively on masked labeled nodes**.
 
 ## Results
 
-Evaluation on masked labeled nodes (U ∩ known).
+Evaluation on masked labeled nodes (U∩known).
 
 ### Undirected Graph
 
@@ -225,17 +225,25 @@ Confusion matrix: TN = 108,433, FP = 2,005, FN = 5,598, TP = 1,479
 
 ## Implementation Notes
 
-- Edge-list-based propagation (no adjacency matrix)
-- Numba-accelerated kernels
-- Supports directed and undirected graphs
-- Binary classification (licit / illicit)
+- **Edge-list-based propagation** (no explicit adjacency matrix construction)
+- **Numba-accelerated kernels** for efficient large-scale graph diffusion
+- Supports **directed and undirected graphs**
+- **Binary node classification** (licit / illicit)
 
 ---
 
-## Source code:
+## Project Page
+
+https://zeevweizmann.github.io/Generalized_Optimization_Framework/
+
+---
+
+## Source Code
 
 https://github.com/ZeevWeizmann/Generalized_Optimization_Framework
 
+---
+
 ## Repository Contents
 
-- `Generalized_Optimization_Framework.git.py` — main implementation and experiment runner
+- `Generalized_Optimization_Framework.py` — main implementation and experiment runner
