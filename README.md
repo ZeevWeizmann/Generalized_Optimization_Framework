@@ -232,6 +232,10 @@ Confusion matrix: TN = 108,433, FP = 2,005, FN = 5,598, TP = 1,479
 
 ---
 
+## Source code:
+
+https://github.com/ZeevWeizmann/Generalized_Optimization_Framework
+
 ## Repository Contents
 
 - `Generalized_Optimization_Framework.git.py` — main implementation and experiment runner
