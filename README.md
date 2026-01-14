@@ -84,18 +84,12 @@ These regimes correspond to **qualitatively different normalization schemes**, n
 
 The original framework admits the closed-form expression:
 
-\[
-F^{\ast}
-=
-\frac{\mu}{2 + \mu}
+$$
+F^{*} = \frac{\mu}{2 + \mu}
 \left(
-I
-
-- \frac{2}{2 + \mu}
-  \, D^{-\sigma} W D^{\sigma - 1}
-  \right)^{-1}
-  Y
-  \]
+I - \frac{2}{2 + \mu} D^{-\sigma} W D^{\sigma - 1}
+\right)^{-1} Y
+$$
 
 However, for very large graphs this formulation is impractical.
 
