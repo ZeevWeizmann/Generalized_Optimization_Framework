@@ -18,9 +18,8 @@ https://www-sop.inria.fr/members/Marina.Sokol/data/articles/confs/siam.pdf
 
 ## Problem Setting
 
-Given a graph with a small subset of labeled nodes (seeds), the objective is to infer labels for the remaining nodes by enforcing smoothness of the classification function over the graph while preserving fidelity to the known labels.
-
-The method is applicable to large-scale graphs where only a fraction of nodes are labeled and classical supervised learning is infeasible.
+Given a Bitcoin transaction graph with a small subset of labeled nodes from both classes (licit and illicit), used as seeds, the objective is to infer labels for the remaining nodes by enforcing smoothness of the classification function over the graph while preserving fidelity to the
+known labels.
 
 ---
 
@@ -79,8 +78,6 @@ Following Avrachenkov et al., the parameter σ defines three canonical diffusion
 
 - σ = 1  
   Standard Laplacian method
-
-These regimes correspond to **qualitatively different normalization schemes**, not simple hyperparameter tuning.
 
 ---
 
