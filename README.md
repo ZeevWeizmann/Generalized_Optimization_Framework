@@ -45,11 +45,7 @@ The framework balances two objectives:
 Instead of using the closed-form solution, this implementation relies on the following **fixed-point iteration**:
 
 $$
-F_{t+1}
-=
-(1 - \alpha)\, Y
-+
-\alpha \, D^{-\sigma} W D^{\sigma - 1} F_t
+F_{t+1} = (1-\alpha)\,Y + \alpha\,D^{-\sigma} W D^{\sigma-1} F_t
 $$
 
 with:
