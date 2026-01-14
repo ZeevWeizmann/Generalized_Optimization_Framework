@@ -1,4 +1,4 @@
-# Generalized Optimization Framework for Graph-based Semi-Supervised Learning
+# Generalized Optimization Framework for Illicit Activity Detection in Bitcoin Transaction Graphs
 
 This repository provides a scalable implementation of the **Generalized Optimization Framework for graph-based semi-supervised learning** proposed by **Avrachenkov et al. (SIAM SDM, 2011)**.
 
