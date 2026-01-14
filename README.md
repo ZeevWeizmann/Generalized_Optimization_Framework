@@ -44,7 +44,13 @@ The framework balances two objectives:
 
 Instead of using the closed-form solution, this implementation relies on the following **fixed-point iteration**:
 
-F(t+1) = (1 − α) · Y + α · D^(−σ) · W · D^(σ−1) · F(t)
+$$
+F_{t+1}
+=
+(1 - \alpha)\, Y
++
+\alpha \, D^{-\sigma} W D^{\sigma - 1} F_t
+$$
 
 with:
 
@@ -104,7 +110,7 @@ As a result:
 - storing even sparse matrices is prohibitively expensive,
 - iterative propagation over the edge list is the only scalable approach.
 
-The fixed-point iteration converges to the same solution as the closed-form expression and naturally corresponds to a PageRank-like diffusion process.
+The fixed-point iteration converges to the same solution as the closed-form expression.
 
 ---
 
