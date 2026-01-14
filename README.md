@@ -135,7 +135,7 @@ Resulting in:
 - Seeds (L): 117,515
   - Licit seeds: 110,438
   - Illicit seeds: 7,077
-- Masked evaluation nodes (Unknown): 117,515
+- Masked evaluation nodes (unknown): 117,515
   - Licit masked: 110,438
   - Illicit masked: 7,077
 
