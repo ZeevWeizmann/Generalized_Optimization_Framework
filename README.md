@@ -15,6 +15,7 @@ SIAM International Conference on Data Mining (SDM), 2011
 https://www-sop.inria.fr/members/Marina.Sokol/data/articles/confs/siam.pdf
 
 K. Avrachenkov, P. Gonçalves, A. Mishenin, M. Sokol
+
 _Graph Based Classification of Content and Users in BitTorrent_
 BigLearn 2011 Workshop on Big Learning (co-located with NIPS), 2011
 https://www-sop.inria.fr/members/Konstantin.Avratchenkov/pubs/biglearn2011_submission_14.pdf
