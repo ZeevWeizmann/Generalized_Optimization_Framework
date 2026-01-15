@@ -2,6 +2,10 @@ import numpy as np
 from numba import njit, prange
 from sklearn.metrics import classification_report, confusion_matrix
 from data_loader import load_graph_and_labels
+import pandas as pd
+from sklearn.metrics import confusion_matrix
+
+
 
 # ===================== Hyperparameters =====================
 MU = 0.5
@@ -11,8 +15,8 @@ N_ITER = 20
 SIGMAS = [0.0, 0.5, 1.0]
 MODES = ["undirected", "directed"]
 
-SEED_FRAC_ILL = 0.5
-SEED_FRAC_LIC = 0.5
+SEED_FRACS = [0.1, 0.3, 0.5]
+
 RANDOM_SEED = 42
 # ===========================================================
 
@@ -49,18 +53,6 @@ y_true[illicit_idx] = 1
 y_true[licit_idx] = 0
 known_mask = (y_true != -1)
 
-rng = np.random.default_rng(RANDOM_SEED)
-seed_ill = rng.choice(illicit_idx, max(1, int(len(illicit_idx)*SEED_FRAC_ILL)), replace=False)
-seed_lic = rng.choice(licit_idx, max(1, int(len(licit_idx)*SEED_FRAC_LIC)), replace=False)
-
-L_mask = np.zeros(N, dtype=np.bool_)
-L_mask[seed_ill] = True
-L_mask[seed_lic] = True
-U_mask = ~L_mask
-
-Y = np.zeros((N, 2))
-Y[seed_lic, 0] = 1.0
-Y[seed_ill, 1] = 1.0
 # ===========================================================
 
 
@@ -118,34 +110,64 @@ def propagate_directed(src, dst, deg_out, deg_in, F, Y, alpha, sigma, N):
 # ===================== Experiments ==========================
 for mode in MODES:
     for sigma in SIGMAS:
+        for seed_frac in SEED_FRACS:
 
-        print("\n" + "="*70)
-        print(f"[RUN] mode={mode.upper()} | sigma={sigma}")
-        print("="*70)
+            print("\n" + "="*80)
+            print(f"[RUN] mode={mode.upper()} | sigma={sigma} | seed_frac={seed_frac}")
+            print("="*80)
 
-        F = Y.copy()
+            # ---------- SEEDING ----------
+            rng = np.random.default_rng(RANDOM_SEED)
 
-        for _ in range(N_ITER):
-            if mode == "undirected":
-                F = propagate_undirected(src, dst, deg, F, Y, ALPHA, sigma, N)
-            else:
-                F = propagate_directed(src, dst, deg_out, deg_in, F, Y, ALPHA, sigma, N)
+            seed_ill = rng.choice(
+                illicit_idx,
+                max(1, int(len(illicit_idx) * seed_frac)),
+                replace=False
+            )
+            seed_lic = rng.choice(
+                licit_idx,
+                max(1, int(len(licit_idx) * seed_frac)),
+                replace=False
+            )
 
-        y_pred = (F[:,1] > F[:,0]).astype(int)
-        eval_mask = U_mask & known_mask
+            L_mask = np.zeros(N, dtype=np.bool_)
+            L_mask[seed_ill] = True
+            L_mask[seed_lic] = True
+            U_mask = ~L_mask
 
-        yt = y_true[eval_mask]
-        yp = y_pred[eval_mask]
+            Y = np.zeros((N, 2))
+            Y[seed_lic, 0] = 1.0
+            Y[seed_ill, 1] = 1.0
 
-        print(classification_report(
-            yt, yp,
-            target_names=["licit","illicit"],
-            zero_division=0
-        ))
+            F = Y.copy()
 
-        cm = confusion_matrix(yt, yp, labels=[0,1])
-        tn, fp, fn, tp = cm.ravel()
+            for _ in range(N_ITER):
+                if mode == "undirected":
+                    F = propagate_undirected(src, dst, deg, F, Y, ALPHA, sigma, N)
+                else:
+                    F = propagate_directed(src, dst, deg_out, deg_in, F, Y, ALPHA, sigma, N)
 
-        print(f"Confusion matrix: TN={tn}, FP={fp}, FN={fn}, TP={tp}")
+            y_pred = (F[:,1] > F[:,0]).astype(int)
+            eval_mask = U_mask & known_mask
+
+            yt = y_true[eval_mask]
+            yp = y_pred[eval_mask]
+
+            print(classification_report(
+                yt, yp,
+                target_names=["licit", "illicit"],
+                zero_division=0
+            ))
+
+            # Confusion matrix: illicit / licit
+            cm = confusion_matrix(yt, yp, labels=[0, 1])
+
+            cm_df = pd.DataFrame(
+                cm,
+                index=pd.Index(["Licit", "Illicit"], name="True"),
+                columns=pd.Index(["Licit", "Illicit"], name="Pred")
+            )
+
+            print(cm_df)
 
 print("\n[Done] All experiments finished.")
