@@ -142,7 +142,12 @@ All reported metrics are computed **exclusively on masked labeled nodes**.
 
 ## Results
 
-Evaluation on masked labeled nodes (U∩known).
+Evaluation on masked labeled nodes (**unknown**).  
+Results are grouped by seed fraction (**SEED_FRAC_LIC = SEED_FRAC_ILL**).
+
+---
+
+## Seed fraction = 0.5
 
 ### Undirected Graph
 
@@ -153,8 +158,12 @@ Evaluation on masked labeled nodes (U∩known).
 | Licit   | 0.95      | 1.00   | 0.98     | 110,438 |
 | Illicit | 0.92      | 0.22   | 0.36     | 7,077   |
 
-Accuracy: 0.95  
-Confusion matrix: TN = 110,300, FP = 138, FN = 5,503, TP = 1,574
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 110,299 | 139     |
+| **Illicit** | 5,502   | 1,575   |
 
 ---
 
@@ -165,8 +174,12 @@ Confusion matrix: TN = 110,300, FP = 138, FN = 5,503, TP = 1,574
 | Licit   | 0.95      | 1.00   | 0.97     | 110,438 |
 | Illicit | 0.89      | 0.23   | 0.36     | 7,077   |
 
-Accuracy: 0.95  
-Confusion matrix: TN = 110,236, FP = 202, FN = 5,463, TP = 1,614
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 110,236 | 202     |
+| **Illicit** | 5,462   | 1,615   |
 
 ---
 
@@ -175,10 +188,14 @@ Confusion matrix: TN = 110,236, FP = 202, FN = 5,463, TP = 1,614
 | Class   | Precision | Recall | F1-score | Support |
 | ------- | --------- | ------ | -------- | ------- |
 | Licit   | 0.95      | 1.00   | 0.97     | 110,438 |
-| Illicit | 0.86      | 0.21   | 0.34     | 7,077   |
+| Illicit | 0.85      | 0.21   | 0.34     | 7,077   |
 
-Accuracy: 0.95  
-Confusion matrix: TN = 110,188, FP = 250, FN = 5,577, TP = 1,500
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 110,175 | 263     |
+| **Illicit** | 5,577   | 1,500   |
 
 ---
 
@@ -191,8 +208,12 @@ Confusion matrix: TN = 110,188, FP = 250, FN = 5,577, TP = 1,500
 | Licit   | 0.95      | 0.92   | 0.93     | 110,438 |
 | Illicit | 0.16      | 0.23   | 0.19     | 7,077   |
 
-Accuracy: 0.88  
-Confusion matrix: TN = 101,689, FP = 8,749, FN = 5,437, TP = 1,640
+Accuracy: 0.88
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 101,689 | 8,749   |
+| **Illicit** | 5,437   | 1,640   |
 
 ---
 
@@ -203,8 +224,12 @@ Confusion matrix: TN = 101,689, FP = 8,749, FN = 5,437, TP = 1,640
 | Licit   | 0.98      | 0.90   | 0.94     | 110,438 |
 | Illicit | 0.31      | 0.73   | 0.43     | 7,077   |
 
-Accuracy: 0.89  
-Confusion matrix: TN = 98,903, FP = 11,535, FN = 1,940, TP = 5,137
+Accuracy: 0.89
+
+| True \ Pred | Licit  | Illicit |
+| ----------- | ------ | ------- |
+| **Licit**   | 98,903 | 11,535  |
+| **Illicit** | 1,940  | 5,137   |
 
 ---
 
@@ -215,10 +240,216 @@ Confusion matrix: TN = 98,903, FP = 11,535, FN = 1,940, TP = 5,137
 | Licit   | 0.95      | 0.98   | 0.97     | 110,438 |
 | Illicit | 0.42      | 0.21   | 0.28     | 7,077   |
 
-Accuracy: 0.94  
-Confusion matrix: TN = 108,433, FP = 2,005, FN = 5,598, TP = 1,479
+Accuracy: 0.94
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 108,433 | 2,005   |
+| **Illicit** | 5,598   | 1,479   |
 
 ---
+
+## Seed fraction = 0.3
+
+### Undirected Graph
+
+#### σ = 0 (PageRank-based)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.98     | 154,614 |
+| Illicit | 0.91      | 0.22   | 0.36     | 9,908   |
+
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 154,400 | 214     |
+| **Illicit** | 7,703   | 2,205   |
+
+---
+
+#### σ = 0.5 (Normalized Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.98     | 154,614 |
+| Illicit | 0.90      | 0.23   | 0.36     | 9,908   |
+
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 154,370 | 244     |
+| **Illicit** | 7,653   | 2,255   |
+
+---
+
+#### σ = 1 (Standard Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 154,614 |
+| Illicit | 0.91      | 0.21   | 0.34     | 9,908   |
+
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 154,405 | 209     |
+| **Illicit** | 7,842   | 2,066   |
+
+---
+
+### Directed Graph
+
+#### σ = 0 (PageRank-based)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.97      | 0.80   | 0.88     | 154,614 |
+| Illicit | 0.17      | 0.61   | 0.26     | 9,908   |
+
+Accuracy: 0.79
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 124,090 | 30,524  |
+| **Illicit** | 3,845   | 6,063   |
+
+---
+
+#### σ = 0.5 (Normalized Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.97      | 0.89   | 0.93     | 154,614 |
+| Illicit | 0.25      | 0.57   | 0.35     | 9,908   |
+
+Accuracy: 0.87
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 137,916 | 16,698  |
+| **Illicit** | 4,266   | 5,642   |
+
+---
+
+#### σ = 1 (Standard Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.94      | 1.00   | 0.97     | 154,614 |
+| Illicit | 0.64      | 0.03   | 0.05     | 9,908   |
+
+Accuracy: 0.94
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 154,405 | 209     |
+| **Illicit** | 9,842   | 66      |
+
+---
+
+## Seed fraction = 0.1
+
+### Undirected Graph
+
+#### σ = 0 (PageRank-based)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.91      | 0.21   | 0.34     | 12,739  |
+
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,538 | 251     |
+| **Illicit** | 10,046  | 2,693   |
+
+---
+
+#### σ = 0.5 (Normalized Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.91      | 0.22   | 0.35     | 12,739  |
+
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,527 | 262     |
+| **Illicit** | 9,999   | 2,740   |
+
+---
+
+#### σ = 1 (Standard Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.91      | 0.21   | 0.34     | 12,739  |
+
+Accuracy: 0.95
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,533 | 256     |
+| **Illicit** | 10,077  | 2,662   |
+
+---
+
+### Directed Graph
+
+#### σ = 0 (PageRank-based)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.94      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.10      | 0.00   | 0.00     | 12,739  |
+
+Accuracy: 0.94
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,508 | 281     |
+| **Illicit** | 12,707  | 32      |
+
+---
+
+#### σ = 0.5 (Normalized Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.94      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.10      | 0.00   | 0.00     | 12,739  |
+
+Accuracy: 0.94
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,522 | 267     |
+| **Illicit** | 12,710  | 29      |
+
+---
+
+#### σ = 1 (Standard Laplacian)
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.94      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.14      | 0.00   | 0.00     | 12,739  |
+
+Accuracy: 0.94
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,771 | 18      |
+| **Illicit** | 12,736  | 3       |
 
 ## Implementation Notes
 
