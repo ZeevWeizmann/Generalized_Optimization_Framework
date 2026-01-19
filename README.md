@@ -118,30 +118,49 @@ The fixed-point iteration converges to the same solution as the closed-form expr
 
 ## Dataset and Experimental Protocol
 
-Graph statistics:
+### Graph statistics
 
-- Total nodes: 31,535,968
-- Total edges: 34,769,058
+- Total nodes: **31,535,968**
+- Total edges: **34,769,058**
 
-Labeled subset (“known”):
+### Labeled subset (“known”)
 
-- Total labeled nodes: 235,030
-  - Licit: 220,876
-  - Illicit: 14,154
+- Total labeled nodes: **235,030**
+  - Licit: **220,876**
+  - Illicit: **14,154**
 
-Class-balanced semi-supervised split:
+### Class-balanced semi-supervised split
 
-- SEED_FRAC_LIC = 0.5
-- SEED_FRAC_ILL = 0.5
+- **SEED_FRAC_LIC ∈ {0.5, 0.3, 0.1, 0.05}**
+- **SEED_FRAC_ILL = SEED_FRAC_LIC**
 
-Resulting in:
+For each experiment, the same seed fraction is applied to both classes, ensuring a class-balanced seeding protocol.
 
-- Seeds (L): 117,515
-  - Licit seeds: 110,438
-  - Illicit seeds: 7,077
-- Masked evaluation nodes (unknown): 117,515
-  - Licit masked: 110,438
-  - Illicit masked: 7,077
+#### Resulting splits (for each seed fraction)
+
+- **Seeds (L):**
+
+  - Licit seeds: `SEED_FRAC_LIC × |Licit|`
+  - Illicit seeds: `SEED_FRAC_ILL × |Illicit|`
+
+- **Masked evaluation nodes (unknown):**
+  - Remaining labeled licit nodes
+  - Remaining labeled illicit nodes
+
+### Seeding strategies
+
+Two seeding strategies are considered in the experimental evaluation:
+
+1. **Uniform seeding (baseline).**  
+   Seed nodes are selected uniformly at random from the labeled subset.
+
+2. **Degree-based seeding.**  
+   Seed nodes are selected after sorting nodes according to their degree:
+
+   - for the undirected graph, the standard node degree is used;
+   - for the directed graph, the out-degree is used.
+
+   The top fraction of highest-degree nodes within each class is selected as seeds.
 
 All reported metrics are computed **exclusively on masked labeled nodes**.
 
@@ -154,7 +173,7 @@ Results are grouped by seed fraction (**SEED_FRAC_LIC = SEED_FRAC_ILL**).
 
 ---
 
-## Seed fraction = 0.5
+## Seed fraction = 0.5 (Uniform Seeding)
 
 ### Undirected Graph
 
@@ -256,7 +275,7 @@ Accuracy: 0.94
 
 ---
 
-## Seed fraction = 0.3
+## Seed fraction = 0.3 (Uniform Seeding)
 
 ### Undirected Graph
 
@@ -358,7 +377,7 @@ Accuracy: 0.94
 
 ---
 
-## Seed fraction = 0.1
+## Seed fraction = 0.1 (Uniform Seeding)
 
 ### Undirected Graph
 
@@ -457,6 +476,214 @@ Accuracy: 0.94
 | ----------- | ------- | ------- |
 | **Licit**   | 198,771 | 18      |
 | **Illicit** | 12,736  | 3       |
+
+### Degree-Based Seeding — Seed Fraction = 0.1
+
+Seeds are selected among the top 10% highest-degree nodes within each class.
+
+---
+
+#### Undirected Graph
+
+**σ = 0 (PageRank-based)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.89      | 0.21   | 0.35     | 12,739  |
+
+Accuracy: **0.95**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,465 | 324     |
+| **Illicit** | 10,009  | 2,730   |
+
+---
+
+**σ = 0.5 (Normalized Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.79      | 0.22   | 0.34     | 12,739  |
+
+Accuracy: **0.95**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,067 | 722     |
+| **Illicit** | 9,971   | 2,768   |
+
+---
+
+**σ = 1 (Standard Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.94      | 1.00   | 0.97     | 198,789 |
+| Illicit | 0.31      | 0.02   | 0.04     | 12,739  |
+
+Accuracy: **0.94**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 198,187 | 602     |
+| **Illicit** | 12,469  | 270     |
+
+---
+
+#### Directed Graph
+
+**σ = 0 (PageRank-based)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.99      | 0.81   | 0.89     | 198,789 |
+| Illicit | 0.22      | 0.85   | 0.35     | 12,739  |
+
+Accuracy: **0.81**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 160,240 | 38,549  |
+| **Illicit** | 1,865   | 10,874  |
+
+---
+
+**σ = 0.5 (Normalized Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.99      | 0.81   | 0.89     | 198,789 |
+| Illicit | 0.22      | 0.85   | 0.35     | 12,739  |
+
+Accuracy: **0.81**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 160,316 | 38,473  |
+| **Illicit** | 1,879   | 10,860  |
+
+---
+
+**σ = 1 (Standard Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 0.98   | 0.96     | 198,789 |
+| Illicit | 0.37      | 0.22   | 0.28     | 12,739  |
+
+Accuracy: **0.93**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 194,040 | 4,749   |
+| **Illicit** | 9,923   | 2,816   |
+
+### Degree-Based Seeding — Seed Fraction = 0.05
+
+Seeds are selected among the top 5% highest-degree nodes within each class.
+
+---
+
+#### Undirected Graph
+
+**σ = 0 (PageRank-based)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 209,833 |
+| Illicit | 0.89      | 0.21   | 0.34     | 13,447  |
+
+Accuracy: **0.95**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 209,463 | 370     |
+| **Illicit** | 10,590  | 2,857   |
+
+---
+
+**σ = 0.5 (Normalized Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 1.00   | 0.97     | 209,833 |
+| Illicit | 0.77      | 0.21   | 0.34     | 13,447  |
+
+Accuracy: **0.95**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 208,992 | 841     |
+| **Illicit** | 10,561  | 2,886   |
+
+---
+
+**σ = 1 (Standard Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.94      | 1.00   | 0.97     | 209,833 |
+| Illicit | 0.34      | 0.03   | 0.05     | 13,447  |
+
+Accuracy: **0.94**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 209,121 | 712     |
+| **Illicit** | 13,080  | 367     |
+
+---
+
+#### Directed Graph
+
+**σ = 0 (PageRank-based)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.99      | 0.81   | 0.89     | 209,833 |
+| Illicit | 0.22      | 0.85   | 0.35     | 13,447  |
+
+Accuracy: **0.81**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 169,296 | 40,537  |
+| **Illicit** | 1,972   | 11,475  |
+
+---
+
+**σ = 0.5 (Normalized Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.99      | 0.81   | 0.89     | 209,833 |
+| Illicit | 0.22      | 0.85   | 0.35     | 13,447  |
+
+Accuracy: **0.81**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 169,378 | 40,455  |
+| **Illicit** | 1,982   | 11,465  |
+
+---
+
+**σ = 1 (Standard Laplacian)**
+
+| Class   | Precision | Recall | F1-score | Support |
+| ------- | --------- | ------ | -------- | ------- |
+| Licit   | 0.95      | 0.98   | 0.96     | 209,833 |
+| Illicit | 0.37      | 0.22   | 0.28     | 13,447  |
+
+Accuracy: **0.93**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| **Licit**   | 204,815 | 5,018   |
+| **Illicit** | 10,482  | 2,965   |
 
 ## Implementation Notes
 

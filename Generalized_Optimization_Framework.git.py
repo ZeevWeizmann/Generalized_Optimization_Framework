@@ -3,7 +3,6 @@ from numba import njit, prange
 from sklearn.metrics import classification_report, confusion_matrix
 from data_loader import load_graph_and_labels
 import pandas as pd
-from sklearn.metrics import confusion_matrix
 
 
 
@@ -15,7 +14,7 @@ N_ITER = 20
 SIGMAS = [0.0, 0.5, 1.0]
 MODES = ["undirected", "directed"]
 
-SEED_FRACS = [0.1, 0.3, 0.5]
+SEED_FRACS = [0.05]
 
 RANDOM_SEED = 42
 # ===========================================================
@@ -117,18 +116,37 @@ for mode in MODES:
             print("="*80)
 
             # ---------- SEEDING ----------
-            rng = np.random.default_rng(RANDOM_SEED)
+            # rng = np.random.default_rng(RANDOM_SEED)
 
-            seed_ill = rng.choice(
-                illicit_idx,
-                max(1, int(len(illicit_idx) * seed_frac)),
-                replace=False
-            )
-            seed_lic = rng.choice(
-                licit_idx,
-                max(1, int(len(licit_idx) * seed_frac)),
-                replace=False
-            )
+            # seed_ill = rng.choice(
+            #     illicit_idx,
+            #     max(1, int(len(illicit_idx) * seed_frac)),
+            #     replace=False
+            # )
+            # seed_lic = rng.choice(
+            #     licit_idx,
+            #     max(1, int(len(licit_idx) * seed_frac)),
+            #     replace=False
+            # )
+            # ---------- DEGREE-BASED SEEDING ----------
+
+            if mode == "undirected":
+                degree_used = deg
+            else:
+                degree_used = deg_out   
+
+            k_ill = max(1, int(len(illicit_idx) * seed_frac))
+            k_lic = max(1, int(len(licit_idx) * seed_frac))
+
+            ill_sorted = illicit_idx[np.argsort(degree_used[illicit_idx])[::-1]]
+            lic_sorted = licit_idx[np.argsort(degree_used[licit_idx])[::-1]]
+
+            seed_ill = ill_sorted[:k_ill]
+            seed_lic = lic_sorted[:k_lic]
+            print("  seed_ill degree mean:", degree_used[seed_ill].mean(), 
+                "max:", degree_used[seed_ill].max())
+            print("  seed_lic degree mean:", degree_used[seed_lic].mean(), 
+                "max:", degree_used[seed_lic].max())
 
             L_mask = np.zeros(N, dtype=np.bool_)
             L_mask[seed_ill] = True
@@ -159,7 +177,7 @@ for mode in MODES:
                 zero_division=0
             ))
 
-            # Confusion matrix: illicit / licit
+            # Confusion matrix: 
             cm = confusion_matrix(yt, yp, labels=[0, 1])
 
             cm_df = pd.DataFrame(
