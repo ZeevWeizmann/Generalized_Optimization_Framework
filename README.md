@@ -685,6 +685,152 @@ Accuracy: **0.93**
 | **Licit**   | 204,815 | 5,018   |
 | **Illicit** | 10,482  | 2,965   |
 
+## Seed Fraction = 0.005 (Directed Graph)
+
+### Experimental Setup
+
+- Total labeled nodes: 235,030
+- Licit seeds: **1,104**
+- Illicit seeds: **70**
+- Evaluation nodes: **233,856**
+
+We compare three seeding strategies:
+
+1. **PageRank** (authority-based)
+2. **Out-PageRank** (flow influence)
+3. **Out-Degree** (activity hubs)
+
+Results are reported for three diffusion regimes:
+
+- σ = 0 (PageRank diffusion)
+- σ = 0.5 (Normalized Laplacian)
+- σ = 1 (Standard Laplacian)
+
+---
+
+# σ = 0
+
+### PageRank seeding
+
+Illicit — Precision: **0.08**, Recall: **0.02**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 216,685 | 3,087   |
+| Illicit     | 13,831  | 253     |
+
+Accuracy: **0.93**
+
+---
+
+### Out-PageRank seeding
+
+Illicit — Precision: **0.22**, Recall: **0.85**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 177,408 | 42,364  |
+| Illicit     | 2,093   | 11,991  |
+
+Accuracy: **0.81**
+
+---
+
+### Out-Degree seeding
+
+Illicit — Precision: **0.23**, Recall: **0.83**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 181,000 | 38,772  |
+| Illicit     | 2,395   | 11,689  |
+
+Accuracy: **≈ 0.82**
+
+---
+
+# σ = 0.5
+
+### PageRank seeding
+
+Illicit — Precision: **0.09**, Recall: **0.02**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 216,495 | 3,277   |
+| Illicit     | 13,742  | 342     |
+
+Accuracy: **0.93**
+
+---
+
+### Out-PageRank seeding
+
+Illicit — Precision: **0.22**, Recall: **0.85**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 177,505 | 42,267  |
+| Illicit     | 2,105   | 11,979  |
+
+Accuracy: **0.81**
+
+---
+
+### Out-Degree seeding
+
+Illicit — Precision: **0.23**, Recall: **0.83**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 181,050 | 38,722  |
+| Illicit     | 2,410   | 11,674  |
+
+Accuracy: **≈ 0.82**
+
+---
+
+# σ = 1
+
+### PageRank seeding
+
+Illicit — Precision: **0.32**, Recall: **0.20**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 213,608 | 6,164   |
+| Illicit     | 11,206  | 2,878   |
+
+Accuracy: **0.93**
+
+---
+
+### Out-PageRank seeding
+
+Illicit — Precision: **0.37**, Recall: **0.22**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 214,516 | 5,256   |
+| Illicit     | 10,974  | 3,110   |
+
+Accuracy: **0.93**
+
+---
+
+### Out-Degree seeding
+
+Illicit — Precision: **0.36**, Recall: **0.23**
+
+| True \ Pred | Licit   | Illicit |
+| ----------- | ------- | ------- |
+| Licit       | 214,400 | 5,372   |
+| Illicit     | 10,780  | 3,304   |
+
+Accuracy: **≈ 0.93**
+
+---
+
 ## Implementation Notes
 
 - **Edge-list-based propagation** (no explicit adjacency matrix construction)
